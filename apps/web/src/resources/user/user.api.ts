@@ -1,11 +1,11 @@
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { User } from 'types';
+import { User } from "types";
 
-import { apiService } from 'services';
+import { apiService } from "services";
 
 export function useList<T>(params: T) {
-  const list = () => apiService.get('/users', params);
+  const list = () => apiService.get("/users", params);
 
   interface UserListResponse {
     count: number;
@@ -13,5 +13,5 @@ export function useList<T>(params: T) {
     totalPages: number;
   }
 
-  return useQuery<UserListResponse>(['users', params], list);
+  return useQuery<UserListResponse>(["users", params], list);
 }

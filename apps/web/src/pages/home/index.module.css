@@ -5,3 +5,23 @@
 .datePickerSkeleton {
   overflow: unset;
 }
+
+.filter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.cardView {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 10px;
+  align-items: center;
+ background-color: red;
+}

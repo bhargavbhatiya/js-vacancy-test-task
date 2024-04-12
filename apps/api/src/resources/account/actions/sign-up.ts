@@ -11,11 +11,19 @@ import { securityUtil } from 'utils';
 
 import config from 'config';
 
+import Stripe from 'stripe';
+import stripe from 'services/stripe/stripe.service';
+
 const schema = z.object({
   firstName: z.string().min(1, 'Please enter First name').max(100),
   lastName: z.string().min(1, 'Please enter Last name').max(100),
   email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+  password: z
+    .string()
+    .regex(
+      PASSWORD_REGEX,
+      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+    ),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {
@@ -35,18 +43,18 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
 }
 
 async function handler(ctx: AppKoaContext<ValidatedData>) {
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-  } = ctx.validatedData;
+  const { firstName, lastName, email, password } = ctx.validatedData;
 
   const [hash, signupToken] = await Promise.all([
     securityUtil.getHash(password),
     securityUtil.generateSecureToken(),
   ]);
 
+  const params: Stripe.CustomerCreateParams = {
+    description: 'test customer',
+  };
+
+  const customer: Stripe.Customer = await stripe.customers.create(params);
   const user = await userService.insertOne({
     email,
     firstName,
@@ -55,6 +63,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     passwordHash: hash.toString(),
     isEmailVerified: false,
     signupToken,
+    stripeCustomerId: customer.id,
   });
 
   analyticsService.track('New user created', {

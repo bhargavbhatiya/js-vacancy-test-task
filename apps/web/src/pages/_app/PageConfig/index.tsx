@@ -1,18 +1,18 @@
-import { FC, Fragment, ReactElement } from 'react';
-import { useRouter } from 'next/router';
+import { FC, Fragment, ReactElement } from "react";
+import { useRouter } from "next/router";
 
-import { accountApi } from 'resources/account';
+import { accountApi } from "resources/account";
 
-import { analyticsService } from 'services';
-import { routesConfiguration, ScopeType, LayoutType, RoutePath } from 'routes';
+import { analyticsService } from "services";
+import { routesConfiguration, ScopeType, LayoutType, RoutePath } from "routes";
 
-import config from 'config';
+import config from "config";
 
-import MainLayout from './MainLayout';
-import UnauthorizedLayout from './UnauthorizedLayout';
-import PrivateScope from './PrivateScope';
+import MainLayout from "./MainLayout";
+import UnauthorizedLayout from "./UnauthorizedLayout";
+import PrivateScope from "./PrivateScope";
 
-import 'resources/user/user.handlers';
+import "resources/user/user.handlers";
 
 const layoutToComponent = {
   [LayoutType.MAIN]: MainLayout,
@@ -58,9 +58,7 @@ const PageConfig: FC<PageConfigProps> = ({ children }) => {
 
   return (
     <Scope>
-      <Layout>
-        {children}
-      </Layout>
+      <Layout>{children}</Layout>
     </Scope>
   );
 };

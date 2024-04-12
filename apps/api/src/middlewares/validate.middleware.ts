@@ -18,18 +18,20 @@ const formatError = (zodError: ZodError): ValidationErrors => {
   return errors;
 };
 
-const validate = (schema: ZodSchema) => async (ctx: AppKoaContext, next: Next) => {
-  const result = await schema.safeParseAsync({
-    ...ctx.request.body as object,
-    ...ctx.query,
-    ...ctx.params,
-  });
+const validate =
+  (schema: ZodSchema) => async (ctx: AppKoaContext, next: Next) => {
+    const result = await schema.safeParseAsync({
+      ...(ctx.request.body as object),
+      ...ctx.query,
+      ...ctx.params,
+    });
 
-  if (!result.success) ctx.throw(400, { clientErrors: formatError(result.error) });
+    if (!result.success)
+      ctx.throw(400, { clientErrors: formatError(result.error) });
 
-  ctx.validatedData = result.data;
+    ctx.validatedData = result.data;
 
-  await next();
-};
+    await next();
+  };
 
 export default validate;

@@ -1,16 +1,16 @@
-import { FC, memo, ReactNode } from 'react';
-import NextLink from 'next/link';
-import { Anchor } from '@mantine/core';
-import cx from 'clsx';
+import { FC, memo, ReactNode } from "react";
+import NextLink from "next/link";
+import { Anchor } from "@mantine/core";
+import cx from "clsx";
 
-import classes from './Link.module.css';
+import classes from "./Link.module.css";
 
 interface LinkProps {
   children: ReactNode;
-  type?: 'url' | 'router';
+  type?: "url" | "router";
   href?: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  align?: 'left' | 'center' | 'right' | 'justify';
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  align?: "left" | "center" | "right" | "justify";
   icon?: ReactNode;
   inNewTab?: boolean;
   underline?: boolean;
@@ -19,19 +19,19 @@ interface LinkProps {
 }
 
 const Link: FC<LinkProps> = ({
-  type = 'url',
+  type = "url",
   children,
-  href = '#',
-  size = 'md',
+  href = "#",
+  size = "md",
   disabled,
   inNewTab,
-  underline = true,
+  underline = false,
   icon,
   inherit,
-  align = 'left',
+  align = "left",
 }) => {
   switch (type) {
-    case 'router':
+    case "router":
       return (
         <NextLink
           className={cx({ [classes.nextLinkUnderlineNone]: !underline })}
@@ -44,7 +44,7 @@ const Link: FC<LinkProps> = ({
             })}
             size={size}
             inherit={inherit}
-            underline={underline ? 'always' : 'never'}
+            underline={underline ? "always" : "never"}
             ta={align}
           >
             {icon}
@@ -53,18 +53,18 @@ const Link: FC<LinkProps> = ({
         </NextLink>
       );
 
-    case 'url':
+    case "url":
       return (
         <Anchor
           className={cx(classes.link, {
             [classes.disabled]: disabled,
           })}
           href={href}
-          target={inNewTab ? '_blank' : '_self'}
+          target={inNewTab ? "_blank" : "_self"}
           rel="noreferrer"
           size={size}
           inherit={inherit}
-          underline={underline ? 'always' : 'never'}
+          underline={underline ? "always" : "never"}
           ta={align}
         >
           {icon}

@@ -11,7 +11,12 @@ import { securityUtil } from 'utils';
 
 const schema = z.object({
   email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
-  password: z.string().regex(PASSWORD_REGEX, 'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).'),
+  password: z
+    .string()
+    .regex(
+      PASSWORD_REGEX,
+      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
+    ),
 });
 
 interface ValidatedData extends z.infer<typeof schema> {
@@ -27,7 +32,10 @@ async function validator(ctx: AppKoaContext<ValidatedData>, next: Next) {
     credentials: 'The email or password you have entered is invalid',
   });
 
-  const isPasswordMatch = await securityUtil.compareTextWithHash(password, user.passwordHash);
+  const isPasswordMatch = await securityUtil.compareTextWithHash(
+    password,
+    user.passwordHash,
+  );
 
   ctx.assertClientError(isPasswordMatch, {
     credentials: 'The email or password you have entered is invalid',
@@ -53,5 +61,11 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
 }
 
 export default (router: AppRouter) => {
-  router.post('/sign-in', rateLimitMiddleware, validateMiddleware(schema), validator, handler);
+  router.post(
+    '/sign-in',
+    rateLimitMiddleware,
+    validateMiddleware(schema),
+    validator,
+    handler,
+  );
 };
