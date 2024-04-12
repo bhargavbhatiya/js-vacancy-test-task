@@ -3,11 +3,12 @@ import { IconDevicesPlus, IconPlus, IconSum } from "@tabler/icons-react";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { productApi } from "resources/product";
-import queryClient from "query-client";
+import { productApi } from "../../resources/product";
+import queryClient from "../../query-client";
 import CardComponent from "./component/card.yourProduct";
-import { Link } from "components";
-import { RoutePath } from "routes";
+import { Link } from "../../components";
+import { RoutePath } from "../../routes";
+import React from "react";
 
 const YourProduct: NextPage = () => {
   const [userId, setUserId] = useState<string>("");
