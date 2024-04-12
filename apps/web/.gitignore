@@ -31,5 +31,6 @@ yarn-error.log*
 # storybook
 storybook-static
 
-.env
-.env.local
+.env.development
+.env.production
+.env.staging
