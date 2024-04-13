@@ -1,10 +1,10 @@
-import psl from 'psl';
-import url from 'url';
+import psl from "psl";
+import url from "url";
 
-import { AppKoaContext } from 'types';
-import { COOKIES } from 'app-constants';
+import { AppKoaContext } from "types";
+import { COOKIES } from "app-constants";
 
-import config from 'config';
+import config from "config";
 
 export const setTokenCookies = ({
   ctx,
@@ -36,9 +36,7 @@ export const setTokenCookies = ({
   //  }
   ctx.cookies.set(COOKIES.ACCESS_TOKEN, accessToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-    // domain: '.onrender.com',
+    domain: cookiesDomain,
     expires: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000), // 10 years
   });
 };
