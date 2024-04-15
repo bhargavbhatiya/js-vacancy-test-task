@@ -36,7 +36,6 @@ export const setTokenCookies = ({
   //  }
   ctx.cookies.set(COOKIES.ACCESS_TOKEN, accessToken, {
     httpOnly: true,
-    sameSite: 'none',
     domain: process.env.COOKIESDOMAIN || cookiesDomain,
     expires: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000), // 10 years
   });
