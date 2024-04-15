@@ -21,8 +21,8 @@ export const setTokenCookies = ({
   const parsed = psl.parse(parsedUrl.hostname) as psl.ParsedDomain;
   /* Browser will not allow to set cookies for the domain that is not a subdomain of the current domain. so instead of setting cookies for the whole domain, we set it for the current subdomain only. */
 
-  // const cookiesDomain = parsed.domain || undefined;
-  const cookiesDomain = parsed.tld || undefined;
+  const cookiesDomain = parsed.domain || undefined;
+  // const cookiesDomain = parsed.tld || undefined;
 
   // console.log("parsedUrl.hostname", parsedUrl.hostname); parsedUrl.hostname js-vacancy-test-task-web-sg3f.onrender.com
   // console.log("parsed", parsed);
@@ -35,8 +35,8 @@ export const setTokenCookies = ({
   //    listed: true
   //  }
   ctx.cookies.set(COOKIES.ACCESS_TOKEN, accessToken, {
-    secure: true,
     httpOnly: true,
+    sameSite: 'none',
     domain: process.env.COOKIESDOMAIN || cookiesDomain,
     expires: new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000), // 10 years
   });
