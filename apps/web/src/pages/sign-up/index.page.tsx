@@ -1,9 +1,9 @@
-import { z } from "zod";
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Head from "next/head";
-import { NextPage } from "next";
+import { z } from 'zod'
+import { useState, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Head from 'next/head'
+import { NextPage } from 'next'
 import {
   Button,
   Stack,
@@ -15,55 +15,55 @@ import {
   Checkbox,
   SimpleGrid,
   Tooltip,
-} from "@mantine/core";
+} from '@mantine/core'
 
-import { accountApi } from "resources/account";
+import { accountApi } from 'resources/account'
 
-import config from "config";
-import { Link } from "components";
-import { handleError } from "utils";
-import { RoutePath } from "routes";
+import config from 'config'
+import { Link } from 'components'
+import { handleError } from 'utils'
+import { RoutePath } from 'routes'
 
-import { EMAIL_REGEX, PASSWORD_REGEX } from "app-constants";
+import { EMAIL_REGEX, PASSWORD_REGEX } from 'app-constants'
 
-import { GoogleIcon } from "public/icons";
+import { GoogleIcon } from 'public/icons'
 
 const schema = z.object({
-  firstName: z.string().min(1, "Please enter First name").max(100),
-  lastName: z.string().min(1, "Please enter Last name").max(100),
-  email: z.string().regex(EMAIL_REGEX, "Email format is incorrect."),
+  firstName: z.string().min(1, 'Please enter First name').max(100),
+  lastName: z.string().min(1, 'Please enter Last name').max(100),
+  email: z.string().regex(EMAIL_REGEX, 'Email format is incorrect.'),
   password: z
     .string()
     .regex(
       PASSWORD_REGEX,
-      "The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9)."
+      'The password must contain 6 or more characters with at least one letter (a-z) and one number (0-9).',
     ),
-});
+})
 
-type SignUpParams = z.infer<typeof schema>;
+type SignUpParams = z.infer<typeof schema>
 
 const passwordRules = [
   {
-    title: "Be 6-50 characters",
+    title: 'Be 6-50 characters',
     done: false,
   },
   {
-    title: "Have at least one letter",
+    title: 'Have at least one letter',
     done: false,
   },
   {
-    title: "Have at least one number",
+    title: 'Have at least one number',
     done: false,
   },
-];
+]
 
 const SignUp: NextPage = () => {
-  const [email, setEmail] = useState("");
-  const [registered, setRegistered] = useState(false);
-  const [signupToken, setSignupToken] = useState();
+  const [email, setEmail] = useState('')
+  const [registered, setRegistered] = useState(false)
+  const [signupToken, setSignupToken] = useState()
 
-  const [passwordRulesData, setPasswordRulesData] = useState(passwordRules);
-  const [opened, setOpened] = useState(false);
+  const [passwordRulesData, setPasswordRulesData] = useState(passwordRules)
+  const [opened, setOpened] = useState(false)
 
   const {
     register,
@@ -73,34 +73,35 @@ const SignUp: NextPage = () => {
     formState: { errors },
   } = useForm<SignUpParams>({
     resolver: zodResolver(schema),
-  });
+  })
 
-  const passwordValue = watch("password", "");
+  const passwordValue = watch('password', '')
 
   useEffect(() => {
-    const updatedPasswordRulesData = [...passwordRules];
+    const updatedPasswordRulesData = [...passwordRules]
 
     updatedPasswordRulesData[0].done =
-      passwordValue.length >= 6 && passwordValue.length <= 50;
-    updatedPasswordRulesData[1].done = /[a-zA-Z]/.test(passwordValue);
-    updatedPasswordRulesData[2].done = /\d/.test(passwordValue);
+      passwordValue.length >= 6 && passwordValue.length <= 50
+    updatedPasswordRulesData[1].done = /[a-zA-Z]/.test(passwordValue)
+    updatedPasswordRulesData[2].done = /\d/.test(passwordValue)
 
-    setPasswordRulesData(updatedPasswordRulesData);
-  }, [passwordValue]);
+    setPasswordRulesData(updatedPasswordRulesData)
+  }, [passwordValue])
 
-  const { mutate: signUp, isLoading: isSignUpLoading } =
-    accountApi.useSignUp<SignUpParams>();
+  const { mutate: signUp, isLoading: isSignUpLoading } = accountApi.useSignUp<
+    SignUpParams
+  >()
 
   const onSubmit = (data: SignUpParams) =>
     signUp(data, {
       onSuccess: (response: any) => {
-        if (response.signupToken) setSignupToken(response.signupToken);
+        if (response.signupToken) setSignupToken(response.signupToken)
 
-        setRegistered(true);
-        setEmail(data.email);
+        setRegistered(true)
+        setEmail(data.email)
       },
       onError: (e) => handleError(e, setError),
-    });
+    })
 
   const label = (
     <SimpleGrid cols={1} spacing="xs" p={4}>
@@ -108,14 +109,14 @@ const SignUp: NextPage = () => {
 
       {passwordRulesData.map((ruleData) => (
         <Checkbox
-          styles={{ label: { color: "white" } }}
+          styles={{ label: { color: 'white' } }}
           key={ruleData.title}
           checked={ruleData.done}
           label={ruleData.title}
         />
       ))}
     </SimpleGrid>
-  );
+  )
 
   if (registered) {
     return (
@@ -126,25 +127,39 @@ const SignUp: NextPage = () => {
         <Stack w={450}>
           <Title order={2}>Thanks!</Title>
 
-          <Text size="md" c="gray.6">
+          {/* <Text size="md" c="gray.6">
             Please follow the instructions from the email to complete a sign up
             process. We sent an email with a confirmation link to <b>{email}</b>
+          </Text> */}
+          <Text size="md" c="gray.6">
+            Currently, Sendgrid is not allowing me to login, so I am allowing
+            sign-in without verifying email. I have tried with different emails
+            and also contacted their support team. But they said issue is at
+            their side. <b>{email}</b>
           </Text>
 
           {signupToken && (
             <Stack gap={0}>
               <Text>You look like a cool developer.</Text>
-              <Link
+              {/* <Link
                 size="sm"
                 href={`${config.API_URL}/account/verify-email?token=${signupToken}`}
               >
                 Verify email
+              </Link> */}
+              <Link
+                type="router"
+                href={RoutePath.SignIn}
+                inherit
+                underline={false}
+              >
+                Sign In
               </Link>
             </Stack>
           )}
         </Stack>
       </>
-    );
+    )
   }
 
   return (
@@ -160,7 +175,7 @@ const SignUp: NextPage = () => {
             <Stack gap={20}>
               <TextInput
                 size="md"
-                {...register("firstName")}
+                {...register('firstName')}
                 label="First Name"
                 maxLength={100}
                 placeholder="First Name"
@@ -169,7 +184,7 @@ const SignUp: NextPage = () => {
 
               <TextInput
                 size="md"
-                {...register("lastName")}
+                {...register('lastName')}
                 label="Last Name"
                 maxLength={100}
                 placeholder="Last Name"
@@ -178,7 +193,7 @@ const SignUp: NextPage = () => {
 
               <TextInput
                 size="md"
-                {...register("email")}
+                {...register('email')}
                 label="Email Address"
                 placeholder="Email Address"
                 error={errors.email?.message}
@@ -187,7 +202,7 @@ const SignUp: NextPage = () => {
               <Tooltip label={label} withArrow opened={opened}>
                 <PasswordInput
                   size="md"
-                  {...register("password")}
+                  {...register('password')}
                   label="Password"
                   placeholder="Enter password"
                   onFocus={() => setOpened(true)}
@@ -233,7 +248,7 @@ const SignUp: NextPage = () => {
         </Stack>
       </Stack>
     </>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

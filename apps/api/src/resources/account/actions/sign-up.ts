@@ -61,7 +61,7 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     lastName,
     fullName: `${firstName} ${lastName}`,
     passwordHash: hash.toString(),
-    isEmailVerified: false,
+    isEmailVerified: true, // as sendGrid not working so setting it to true
     signupToken,
     stripeCustomerId: customer.id,
   });
