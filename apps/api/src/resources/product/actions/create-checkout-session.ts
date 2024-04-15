@@ -64,8 +64,8 @@ async function handler(ctx: AppKoaContext<ValidatedData>) {
     //   },
     // ],
     mode: 'payment',
-    success_url: '{process.env.WEB_URL}/payment/successful', // "http://localhost:3002/payment/successful
-    cancel_url: '{process.env.WEB_URL}/payment/failed',
+    success_url: `${process.env.WEB_URL}/payment/successful`, // "http://localhost:3002/payment/successful
+    cancel_url: `${process.env.WEB_URL}/payment/failed`,
   });
 
   console.log('session', session);

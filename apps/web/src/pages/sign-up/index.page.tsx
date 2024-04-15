@@ -132,28 +132,22 @@ const SignUp: NextPage = () => {
             process. We sent an email with a confirmation link to <b>{email}</b>
           </Text> */}
           <Text size="md" c="gray.6">
-            Currently, Sendgrid is not allowing me to login, so I am allowing
-            sign-in without verifying email. I have tried with different emails
-            and also contacted their support team. But they said issue is at
-            their side. <b>{email}</b>
+            Currently, Sendgrid is not allowing me to login. I have tried with
+            different emails and also contacted their support team. But they
+            said issue is at their side. So, I am allowing sign-in without
+            verifying email.
           </Text>
-
+          <Link type="router" href={RoutePath.SignIn} inherit underline={false}>
+            Sign In
+          </Link>
           {signupToken && (
             <Stack gap={0}>
               <Text>You look like a cool developer.</Text>
-              {/* <Link
+              <Link
                 size="sm"
                 href={`${config.API_URL}/account/verify-email?token=${signupToken}`}
               >
                 Verify email
-              </Link> */}
-              <Link
-                type="router"
-                href={RoutePath.SignIn}
-                inherit
-                underline={false}
-              >
-                Sign In
               </Link>
             </Stack>
           )}

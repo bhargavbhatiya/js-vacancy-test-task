@@ -1,14 +1,14 @@
-import { FC, useCallback } from "react";
-import Head from "next/head";
-import router from "next/router";
-import { Stack, Title, Text, Button, Image } from "@mantine/core";
+import { FC, useCallback } from 'react'
+import Head from 'next/head'
+import router from 'next/router'
+import { Stack, Title, Text, Button, Image } from '@mantine/core'
 
-import { RoutePath } from "routes";
+import { RoutePath } from 'routes'
 
 const NotFound: FC = () => {
   const handleClick = useCallback(() => {
-    router.push(RoutePath.Home);
-  }, []);
+    router.push(RoutePath.Home)
+  }, [])
 
   return (
     <>
@@ -16,7 +16,11 @@ const NotFound: FC = () => {
         <title>Empty Cart</title>
       </Head>
       <Stack m="auto" justify="center" display="flex" align="center">
-        <Image w="250" alt="App Info" src="/images/empty-cart.svg" />
+        <Image
+          w="250"
+          alt="App Info"
+          src="https://res.cloudinary.com/bhatiya-bhargav/image/upload/v1713178252/Shopy/public/empty-cart.svg.svg"
+        />
         <Title order={3}>Oops! there's nothing here yet!</Title>
 
         <Text mx={0} mt={20} mb={24} c="gray.6">
@@ -29,7 +33,7 @@ const NotFound: FC = () => {
         </Button>
       </Stack>
     </>
-  );
-};
+  )
+}
 
-export default NotFound;
+export default NotFound

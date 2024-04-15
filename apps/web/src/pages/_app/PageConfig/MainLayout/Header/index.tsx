@@ -1,4 +1,4 @@
-import { memo, FC, useState, useEffect } from "react";
+import { memo, FC, useState, useEffect } from 'react'
 import {
   AppShellHeader as LayoutHeader,
   Container,
@@ -6,41 +6,41 @@ import {
   ActionIcon,
   Badge,
   Space,
-} from "@mantine/core";
+} from '@mantine/core'
 
-import { accountApi } from "resources/account";
+import { accountApi } from 'resources/account'
 
-import { Link } from "components";
-import { RoutePath } from "routes";
-import { Button } from "@mantine/core";
+import { Link } from 'components'
+import { RoutePath } from 'routes'
+import { Button } from '@mantine/core'
 
 // import { LogoImage } from '';
 
-import UserMenu from "./components/UserMenu";
-import ShadowLoginBanner from "./components/ShadowLoginBanner";
+import UserMenu from './components/UserMenu'
+import ShadowLoginBanner from './components/ShadowLoginBanner'
 
-import classes from "./index.module.css";
-import { useRouter } from "next/router";
+import classes from './index.module.css'
+import { useRouter } from 'next/router'
 import {
   IconCategory,
   IconPlus,
   IconShoppingCart,
   IconTrolley,
-} from "@tabler/icons-react";
-import { useSelector } from "react-redux";
-import { RootState } from "resources/redux/store";
+} from '@tabler/icons-react'
+import { useSelector } from 'react-redux'
+import { RootState } from 'resources/redux/store'
 
 const Header: FC = () => {
-  const { data: account } = accountApi.useGet();
-  if (!account) return null;
+  const { data: account } = accountApi.useGet()
+  if (!account) return null
 
-  const router = useRouter();
+  const router = useRouter()
   const isYourProductRoute =
     router.pathname === RoutePath.YourProduct ||
-    router.pathname === RoutePath.CreateProduct;
-  const isMarketPlaceRoute = router.pathname === RoutePath.Home;
+    router.pathname === RoutePath.CreateProduct
+  const isMarketPlaceRoute = router.pathname === RoutePath.Home
 
-  const cart = useSelector((state: RootState) => state.cart);
+  const cart = useSelector((state: RootState) => state.cart)
 
   return (
     <LayoutHeader>
@@ -54,7 +54,11 @@ const Header: FC = () => {
         fluid
       >
         <Link type="router" href={RoutePath.Home}>
-          <img className="w-24" src="/images/logo.png" alt="Logo" />
+          <img
+            className="w-24"
+            src="https://res.cloudinary.com/bhatiya-bhargav/image/upload/v1713178245/Shopy/public/logo.png.png"
+            alt="Logo"
+          />
         </Link>
 
         <Flex
@@ -67,7 +71,7 @@ const Header: FC = () => {
         >
           <Link type="router" href="/">
             <Button
-              variant={isMarketPlaceRoute ? "filled" : "subtle"}
+              variant={isMarketPlaceRoute ? 'filled' : 'subtle'}
               radius="xl"
               size="sm"
             >
@@ -76,7 +80,7 @@ const Header: FC = () => {
           </Link>
           <Link type="router" href={RoutePath.YourProduct}>
             <Button
-              variant={isYourProductRoute ? "filled" : "subtle"}
+              variant={isYourProductRoute ? 'filled' : 'subtle'}
               radius="xl"
               size="sm"
             >
@@ -94,15 +98,15 @@ const Header: FC = () => {
         >
           <div
             style={{
-              position: "relative",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginRight: "10px",
+              position: 'relative',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginRight: '10px',
             }}
           >
             <Badge
-              style={{ position: "absolute", top: "-10px", right: "-18px" }}
+              style={{ position: 'absolute', top: '-10px', right: '-18px' }}
             >
               {cart.cartItems.length}
             </Badge>
@@ -119,7 +123,7 @@ const Header: FC = () => {
         </Flex>
       </Container>
     </LayoutHeader>
-  );
-};
+  )
+}
 
-export default memo(Header);
+export default memo(Header)

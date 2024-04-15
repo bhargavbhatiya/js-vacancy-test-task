@@ -1,9 +1,9 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement } from 'react'
 
-import { SimpleGrid, Image, Center, Grid } from "@mantine/core";
+import { SimpleGrid, Image, Center, Grid } from '@mantine/core'
 
 interface UnauthorizedLayoutProps {
-  children: ReactElement;
+  children: ReactElement
 }
 
 const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (
@@ -19,12 +19,12 @@ const UnauthorizedLayout: FC<UnauthorizedLayoutProps> = ({ children }) => (
           alt="App Info"
           radius="lg"
           p="sm"
-          src="/images/poster.png"
+          src="https://res.cloudinary.com/bhatiya-bhargav/image/upload/v1713178246/Shopy/public/poster.png.png"
           h="100vh"
         />
       </div>
     </Grid.Col>
   </Grid>
-);
+)
 
-export default UnauthorizedLayout;
+export default UnauthorizedLayout
