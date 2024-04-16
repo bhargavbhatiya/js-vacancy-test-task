@@ -25,7 +25,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => (
       {children}
     </AppShell.Main>
 
-    <Footer />
+    {/* <Footer /> */}
   </AppShell>
 );
 

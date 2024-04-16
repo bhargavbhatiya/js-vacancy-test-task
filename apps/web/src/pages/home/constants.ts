@@ -1,35 +1,35 @@
-import { ColumnDef } from '@tanstack/react-table';
-import { ComboboxItem } from '@mantine/core';
+import { ColumnDef } from "@tanstack/react-table";
+import { ComboboxItem } from "@mantine/core";
 
-import { User } from 'types';
+import { User } from "types";
 
-export const PER_PAGE = 5;
+export const PER_PAGE = 6;
 
 export const columns: ColumnDef<User>[] = [
   {
-    accessorKey: 'firstName',
-    header: 'First Name',
+    accessorKey: "firstName",
+    header: "First Name",
     cell: (info) => info.getValue(),
   },
   {
-    accessorKey: 'lastName',
-    header: 'Last Name',
+    accessorKey: "lastName",
+    header: "Last Name",
     cell: (info) => info.getValue(),
   },
   {
-    accessorKey: 'email',
-    header: 'Email',
+    accessorKey: "email",
+    header: "Email",
     cell: (info) => info.getValue(),
   },
 ];
 
 export const selectOptions: ComboboxItem[] = [
   {
-    value: 'newest',
-    label: 'Newest',
+    value: "newest",
+    label: "Newest",
   },
   {
-    value: 'oldest',
-    label: 'Oldest',
+    value: "oldest",
+    label: "Oldest",
   },
 ];

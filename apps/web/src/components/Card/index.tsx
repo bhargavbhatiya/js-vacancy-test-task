@@ -78,14 +78,14 @@ function CardComponent(data: { name: string; price: string; image: string }) {
       {isInCart ? (
         <Button
           variant="filled"
-          color="red"
+          color="blue.2"
           fullWidth
           mt="md"
           radius="md"
           size="sm"
           onClick={() => handleRemoveFromCart(data as any)}
         >
-          Remove from Cart
+          In Cart
         </Button>
       ) : (
         <Button
